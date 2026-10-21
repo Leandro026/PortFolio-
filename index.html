@@ -9,6 +9,22 @@
         content="Portfólio de Leandro Pelegrini: identidade visual, ilustração, design editorial e conteúdo para e-commerce.">
   <meta name="theme-color" content="#A51E22">
 
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("tema");
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+        document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A51E22'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial' font-weight='900' font-size='32' fill='white'%3ELP%3C/text%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Leandro Pelegrini | Designer">
+  <meta property="og:description" content="Identidade visual, ilustração, design editorial e conteúdo digital.">
+  <meta property="og:image" content="https://leandro026.github.io/PortFolio-/assets/portrait.webp">
+
   <!-- Tipografia Editorial Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +40,29 @@
       --cinza: #655E56;
       --linha: #D2C7B8;
       --superficie: #EAE2D5;
+      --sobre-acento: #FFFFFF;
+      --cabecalho: rgba(245, 239, 228, 0.94);
+      color-scheme: light;
       --fonte-titulo: 'Syne', Arial, sans-serif;
       --fonte-corpo: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+
+    /* ===== Modo escuro: cada cor vira o seu oposto na roda de cores =====
+       fundo creme (quente, claro)  ->  azul-petróleo suave (frio, escuro)
+       vermelho #A51E22             ->  turquesa, seu complementar
+       texto quase preto            ->  quase branco azulado             */
+    :root[data-tema="escuro"] {
+      color-scheme: dark;
+      --creme: #141B26;
+      --creme-card: #1B2431;
+      --superficie: #243042;
+      --linha: #2E3B4E;
+      --preto: #EDEFF3;
+      --cinza: #A3AFC0;
+      --vermelho: #3CC8BB;
+      --escuro: #2BA79B;
+      --sobre-acento: #08181B;
+      --cabecalho: rgba(20, 27, 38, 0.92);
     }
 
     * { box-sizing: border-box; }
@@ -81,7 +118,7 @@
       top: -100px;
       left: 15px;
       background: var(--preto);
-      color: white;
+      color: var(--creme);
       padding: 12px 18px;
       z-index: 100;
       border-radius: 8px;
@@ -97,7 +134,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(245, 239, 228, 0.94);
+      background: var(--cabecalho);
       border-bottom: 1px solid var(--linha);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -221,7 +258,7 @@
       line-height: 1;
       white-space: nowrap;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(165, 30, 34, 0.22);
+      -webkit-text-stroke: 1px color-mix(in srgb, var(--vermelho) 22%, transparent);
       z-index: -1;
       pointer-events: none;
     }
@@ -267,7 +304,7 @@
       align-items: center;
       justify-content: center;
       background: var(--vermelho);
-      color: white;
+      color: var(--sobre-acento);
       border: 1px solid var(--vermelho);
       padding: 14px 26px;
       border-radius: 8px;
@@ -275,7 +312,7 @@
       font-size: 14px;
       font-weight: 700;
       min-height: 48px;
-      box-shadow: 0 4px 12px rgba(165, 30, 34, 0.25);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--vermelho) 25%, transparent);
       transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
     }
 
@@ -283,7 +320,7 @@
       background: var(--escuro);
       border-color: var(--escuro);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(165, 30, 34, 0.35);
+      box-shadow: 0 6px 16px color-mix(in srgb, var(--vermelho) 35%, transparent);
     }
 
     .botao.secundario {
@@ -295,7 +332,7 @@
 
     .botao.secundario:hover {
       background: var(--preto);
-      color: white;
+      color: var(--creme);
     }
 
     /* Foto de Perfil */
@@ -420,7 +457,7 @@
     .filtros button[aria-pressed="true"] {
       background: var(--vermelho);
       border-color: var(--vermelho);
-      color: white;
+      color: var(--sobre-acento);
     }
 
     /* ===== Grade de Projetos ===== */
@@ -447,7 +484,7 @@
     .projeto a:hover {
       transform: translateY(-5px);
       border-color: var(--vermelho);
-      box-shadow: 0 15px 35px -10px rgba(165, 30, 34, 0.2);
+      box-shadow: 0 15px 35px -10px color-mix(in srgb, var(--vermelho) 20%, transparent);
     }
 
     .capa {
@@ -516,7 +553,7 @@
       height: 38px;
       border-radius: 8px;
       background: var(--vermelho);
-      color: white;
+      color: var(--sobre-acento);
       font-size: 13px;
       font-weight: 800;
     }
@@ -575,7 +612,7 @@
       height: 14px;
       border-radius: 50%;
       background: var(--vermelho);
-      box-shadow: 0 0 0 5px rgba(165, 30, 34, 0.15);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--vermelho) 15%, transparent);
     }
 
     .experiencia::after {
@@ -650,7 +687,7 @@
       color: var(--creme);
       border-radius: 28px;
       padding: 64px 6%;
-      box-shadow: 0 15px 40px rgba(165, 30, 34, 0.25);
+      box-shadow: 0 15px 40px color-mix(in srgb, var(--vermelho) 25%, transparent);
     }
 
     .contato .container > * {
@@ -662,7 +699,7 @@
 
     .contato h2 {
       font-size: clamp(38px, 6vw, 75px);
-      color: white;
+      color: var(--sobre-acento);
       margin: 16px 0 20px;
     }
 
@@ -680,7 +717,7 @@
     }
 
     .contato .botao:hover {
-      background: white;
+      background: var(--creme-card);
       color: var(--escuro);
     }
 
@@ -690,7 +727,7 @@
       gap: 30px;
       margin-top: 40px;
       padding-top: 30px;
-      border-top: 1px solid rgba(245, 239, 228, 0.25);
+      border-top: 1px solid color-mix(in srgb, var(--creme) 25%, transparent);
       font-size: 15px;
       font-weight: 600;
     }
@@ -899,7 +936,7 @@
         top: -10px;
         right: -10%;
         font-size: 26vw;
-        -webkit-text-stroke-color: rgba(165, 30, 34, 0.15);
+        -webkit-text-stroke-color: color-mix(in srgb, var(--vermelho) 15%, transparent);
       }
 
       .estrela { right: -2%; font-size: 44px; }
@@ -983,6 +1020,27 @@
         transform: none;
       }
     }
+
+    /* ===== Botão de tema ===== */
+    .tema {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--linha); border-radius: 30px;
+      background: var(--creme-card); color: var(--preto);
+      padding: 8px 16px; min-height: 42px;
+      font-size: 13px; font-weight: 700;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .tema:hover { border-color: var(--vermelho); color: var(--vermelho); transform: translateY(-1px); }
+    .tema .icone { font-size: 16px; line-height: 1; }
+    html.trocando *, html.trocando *::before, html.trocando *::after {
+      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease !important;
+    }
+    dialog#lightbox { color: var(--preto); }
+    @media (max-width: 800px) { .tema .rot { display: none; } .tema { padding: 8px 12px; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 
@@ -1007,10 +1065,15 @@
         <a href="#contato">Contato</a>
         <a href="assets/curriculo.pdf" target="_blank" rel="noopener">Currículo ↗</a>
       </div>
+
+      <button class="tema" id="alternar-tema" type="button" aria-label="Alternar entre tema claro e escuro" aria-pressed="false">
+        <span class="icone" aria-hidden="true">☾</span><span class="rot">Escuro</span>
+      </button>
     </nav>
   </header>
 
   <main id="principal">
+    <noscript><p style="padding:24px;text-align:center">Ative o JavaScript para ver os projetos.</p></noscript>
     <div id="pagina-inicial">
       <div class="container">
         
@@ -1173,7 +1236,7 @@
                   conteúdo para lojas online e tratamento de imagens.
                 </p>
               </div>
-              <a href="#case/dtudo">Ver trabalhos relacionados ↗</a>
+              <a href="#contato">Conversar sobre um projeto ↗</a>
             </article>
 
             <article class="servico revelar">
@@ -1253,7 +1316,9 @@
   <script>
     "use strict";
 
-    /* Lista completa dos projetos */
+    /* Lista completa dos projetos.
+       Para adicionar um: salve as imagens em assets/, copie um bloco abaixo e troque os dados.
+       "imagens" aceita só o nome do arquivo, ex.: ["foto-1.webp", "foto-2.webp"]. */
     const projetos = [
       {
         id: "kanubis",
@@ -1319,24 +1384,6 @@
         imagens: [
           { arquivo: "spider-punk.webp", legenda: "Spider-Punk — desenho tradicional" }
         ]
-      },
-      {
-        id: "dtudo",
-        nome: "DTudo — O Paraíso da Casa",
-        categoria: "E-commerce e conteúdo digital",
-        filtros: ["E-commerce", "Conteúdo digital"],
-        capa: "dtudo-lar.webp",
-        introducao: "Seleção de banners, arte de Natal e aplicação temática da marca criados para a DTudo.",
-        conceito: "Peças para comércio eletrônico, reunindo produtos de casa e decoração em uma linguagem natalina.",
-        processo: "",
-        elementos: "Banners de produtos, arte vertical e aplicação natalina da logo.",
-        resultado: "Quatro peças distintas reunidas em uma galeria.",
-        imagens: [
-          { arquivo: "dtudo-lar.webp", legenda: "Seu lar no clima do Natal" },
-          { arquivo: "dtudo-praticidade.webp", legenda: "Praticidade para celebrar" },
-          { arquivo: "dtudo-natal.webp", legenda: "Seu Natal começa aqui" },
-          { arquivo: "dtudo-logo.webp", legenda: "Aplicação natalina da logo DTudo" }
-        ]
       }
     ];
 
@@ -1371,6 +1418,34 @@
       link.href = whatsapp;
     });
 
+    // Tema claro / escuro
+    const raiz = document.documentElement;
+    const botaoTema = document.querySelector("#alternar-tema");
+    const metaTema = document.querySelector('meta[name="theme-color"]');
+
+    function aplicarTema(tema, salvar) {
+      raiz.dataset.tema = tema;
+      const escuro = tema === "escuro";
+      botaoTema.setAttribute("aria-pressed", String(escuro));
+      botaoTema.querySelector(".icone").textContent = escuro ? "☀" : "☾";
+      botaoTema.querySelector(".rot").textContent = escuro ? "Claro" : "Escuro";
+      metaTema.content = escuro ? "#141B26" : "#A51E22";
+      if (salvar) { try { localStorage.setItem("tema", tema); } catch (e) {} }
+    }
+
+    aplicarTema(raiz.dataset.tema === "escuro" ? "escuro" : "claro");
+
+    botaoTema.addEventListener("click", () => {
+      raiz.classList.add("trocando");
+      aplicarTema(raiz.dataset.tema === "escuro" ? "claro" : "escuro", true);
+      setTimeout(() => raiz.classList.remove("trocando"), 450);
+    });
+
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+      try { if (localStorage.getItem("tema")) return; } catch (_) {}
+      aplicarTema(e.matches ? "escuro" : "claro");
+    });
+
     // Menu Mobile
     const menu = document.querySelector(".menu");
     const links = document.querySelector(".links");
@@ -1401,7 +1476,8 @@
     const grade = document.querySelector("#grade");
     const filtros = document.querySelector("#filtros");
 
-    categorias.forEach((categoria, indice) => {
+    // Só mostra categorias que já têm projeto (novas categorias aparecem sozinhas)
+    categorias.filter(c => c === "Todos" || projetos.some(p => p.filtros.includes(c))).forEach((categoria, indice) => {
       const botao = document.createElement("button");
       botao.type = "button";
       botao.textContent = categoria;
@@ -1662,6 +1738,32 @@
         observador.observe(elemento);
       });
     }
+
+    // Imagens: aceita só o nome do arquivo ("foto.webp") ou { arquivo, legenda }
+    projetos.forEach(p => {
+      p.imagens = p.imagens.map(i => typeof i === "string" ? { arquivo: i, legenda: p.nome } : i);
+    });
+
+    // Imagem ainda não enviada para assets/? Mostra um aviso em vez de ícone quebrado
+    const emBreve = "data:image/svg+xml," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#8883"/>' +
+      '<text x="200" y="156" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#888">Imagem em breve</text></svg>'
+    );
+    document.addEventListener("error", e => {
+      const img = e.target;
+      if (img.tagName !== "IMG" || img.dataset.falhou) return;
+      img.dataset.falhou = "1";
+      img.src = emBreve;
+    }, true);
+
+    // Lightbox: fecha ao clicar fora e aceita deslizar o dedo no celular
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) lightbox.close(); });
+    let toqueX = 0;
+    lightbox.addEventListener("touchstart", e => { toqueX = e.changedTouches[0].clientX; }, { passive: true });
+    lightbox.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].clientX - toqueX;
+      if (Math.abs(dx) > 50) mostrarImagem(indiceImagem + (dx < 0 ? 1 : -1));
+    });
 
     renderizarProjetos();
     navegar();
