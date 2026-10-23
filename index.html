@@ -14,7 +14,7 @@
     (function () {
       try {
         var t = localStorage.getItem("tema");
-        if (!t) t = "claro";
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
         document.documentElement.dataset.tema = t;
       } catch (e) {}
     })();
@@ -1033,7 +1033,7 @@
     .tema:hover { border-color: var(--vermelho); color: var(--vermelho); transform: translateY(-1px); }
     .tema .icone { font-size: 16px; line-height: 1; }
     html.trocando *, html.trocando *::before, html.trocando *::after {
-      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, fill 0.4s ease, stroke 0.4s ease, box-shadow 0.4s ease !important;
+      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease !important;
     }
     dialog#lightbox { color: var(--preto); }
     @media (max-width: 800px) { .tema .rot { display: none; } .tema { padding: 8px 12px; } }
@@ -1108,96 +1108,6 @@
     }
     @media (max-width: 480px) { .marca { font-size: 18px; } .marca span { display: none; } .menu { padding: 10px 12px; } .ferr { gap: 8px; } }
     @media (prefers-reduced-motion: reduce) { .capa.duplo img { animation: none; } .capa.duplo img:nth-child(2) { display: none; } }
-
-    /* ===== Animações finais ===== */
-    @keyframes sobe { from { opacity: 0; translate: 0 18px; } }
-    .animacoes .hero [data-ent] { opacity: 0; }
-    .animacoes .hero.entrou [data-ent] { opacity: 1; animation: sobe 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: calc(var(--i, 0) * 110ms); }
-    header { transition: box-shadow 0.3s; }
-    header.rolou { box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--preto) 45%, transparent); }
-    .links a { position: relative; padding-block: 6px; }
-    .links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--vermelho); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    .links a:hover::after, .links a.ativo::after { transform: scaleX(1); }
-    .links a.ativo { color: var(--vermelho); }
-    .projeto h3 { transition: color 0.25s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    .projeto a:hover h3 { color: var(--vermelho); transform: translateX(6px); }
-    .capa::after { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.3s, color 0.3s; }
-    .projeto a:hover .capa::after { transform: translate(3px, -3px) scale(1.12); background: var(--vermelho); color: var(--sobre-acento); }
-    .animacoes .revelar.visivel { transition: opacity 0.7s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease, border-color 0.3s ease; transition-delay: var(--d, 0ms); }
-    .servico { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s, border-color 0.3s; }
-    .servico:hover, .animacoes .servico.revelar.visivel:hover { transform: translateY(-8px); box-shadow: 0 22px 38px -20px color-mix(in srgb, var(--preto) 40%, transparent); }
-    .animacoes .dl.revelar.visivel:hover { transform: translateY(-4px); }
-    .seta-m { display: inline-block; margin-left: 8px; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    a:hover > .seta-m { transform: translate(4px, -4px); }
-    a:hover > .seta-m[data-s="↓"] { transform: translateY(4px); }
-    a:hover > .seta-m[data-s="→"] { transform: translateX(5px); }
-    .botao { position: relative; overflow: hidden; transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; }
-    .botao:active { transform: scale(0.96); }
-    .onda { position: absolute; border-radius: 50%; background: currentColor; opacity: 0.25; transform: scale(0); animation: onda 0.6s ease-out forwards; pointer-events: none; }
-    @keyframes onda { to { transform: scale(2.6); opacity: 0; } }
-    .faixa { flex-wrap: nowrap; justify-content: flex-start; gap: 0; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-    .faixa .trilho { display: flex; flex: none; align-items: center; gap: 36px; padding-right: 36px; animation: corre 32s linear infinite; }
-    @keyframes corre { to { transform: translateX(-100%); } }
-    .linha-t { position: relative; padding-left: 30px; }
-    .linha-t::before, .linha-t::after { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; }
-    .linha-t::before { background: var(--linha); }
-    .linha-t::after { background: var(--vermelho); transform-origin: top; transform: scaleY(var(--p, 0)); }
-    .linha-t .experiencia { position: relative; }
-    .linha-t .experiencia::before { content: ""; position: absolute; left: -36px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--creme); border: 2px solid var(--vermelho); transition: background 0.4s, transform 0.4s; }
-    .linha-t .experiencia.visivel::before { background: var(--vermelho); transform: scale(1.15); }
-    .voltar-topo { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 40; width: 52px; height: 52px; border: 0; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--vermelho) calc(var(--p, 0) * 360deg), var(--linha) 0); color: var(--preto); font-size: 20px; opacity: 0; transform: translateY(16px) scale(0.8); pointer-events: none; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4); transition: opacity 0.35s, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    .voltar-topo::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--creme-card); }
-    .voltar-topo span { position: relative; transition: transform 0.3s; }
-    .voltar-topo.mostrar { opacity: 1; transform: none; pointer-events: auto; }
-    .voltar-topo:hover span { transform: translateY(-3px); }
-    .voltar-topo.mostrar:active { transform: scale(0.92); }
-    dialog#lightbox[open] { animation: abre 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    dialog#lightbox[open]::backdrop { animation: esmaece 0.4s ease; }
-    #imagem-ampliada.anima { animation: imgEntra 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    @keyframes abre { from { opacity: 0; transform: translateY(24px) scale(0.94); } }
-    @keyframes esmaece { from { opacity: 0; } }
-    @keyframes imgEntra { from { opacity: 0; transform: scale(0.97) translateX(18px); } }
-    .tema .icone { display: inline-block; }
-    .tema .icone.gira { animation: giro 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    @keyframes giro { from { transform: rotate(-200deg) scale(0.4); opacity: 0; } }
-    @media (prefers-reduced-motion: reduce) { .faixa .trilho { animation: none; } .onda { display: none; } }
-
-    /* ===== Fluidez (Lenis), desempenho e detalhes ===== */
-    html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
-    .lenis.lenis-stopped { overflow: hidden; }
-    header { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-    dialog#lightbox::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; }
-    .faixa .trilho { will-change: transform; }
-    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
-      background-image: linear-gradient(90deg, color-mix(in srgb, var(--linha) 70%, transparent) 1px, transparent 1px); background-size: 10% 100%;
-      -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 15px); mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 15px); }
-    @media (max-width: 800px) { body::before { background-size: 25% 100%; } }
-    #pagina-case:not([hidden]), #pagina-inicial { animation: pagina 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
-    @keyframes pagina { from { opacity: 0; translate: 0 16px; } }
-    #relogio { font-variant-numeric: tabular-nums; }
-    @media (prefers-reduced-motion: reduce) { body::before { display: none; } }
-
-    /* ===== Movimento mais fluido: curva única, duração longa ===== */
-    :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes sobe { from { opacity: 0; translate: 0 36px; } }
-    .animacoes .hero.entrou [data-ent] { animation: sobe 1.2s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 100ms + 250ms); }
-    .ch { display: inline-block; }
-    .animacoes .hero .ch { opacity: 0; translate: 0 0.6em; rotate: 5deg; transform-origin: 0 100%; }
-    .animacoes .hero.entrou .ch { opacity: 1; translate: none; rotate: 0deg; transition: opacity 1s var(--ease), translate 1.2s var(--ease), rotate 1.2s var(--ease); transition-delay: calc(var(--k, 0) * 32ms + 250ms); }
-    .animacoes .revelar { opacity: 0; transform: translate3d(0, 38px, 0); transition: opacity 1s var(--ease), transform 1.1s var(--ease); will-change: opacity, transform; }
-    .animacoes .revelar.visivel { opacity: 1; transform: none; transition: opacity 1s var(--ease), transform 1.1s var(--ease), box-shadow 0.4s var(--ease), border-color 0.3s; transition-delay: var(--d, 0ms); will-change: auto; }
-    .animacoes .revelar.visivel.pronto { transition: opacity 0.3s, transform 0.55s var(--ease), box-shadow 0.45s var(--ease), border-color 0.3s; transition-delay: 0s; }
-    .animacoes h2.revelar { opacity: 1; transform: none; transition: none; }
-    .pal { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
-    .pal-i { display: inline-block; }
-    .animacoes .pal-i { transform: translate3d(0, 112%, 0); transition: transform 1.15s var(--ease); transition-delay: calc(var(--k, 0) * 70ms); }
-    .animacoes h2.visivel .pal-i { transform: none; }
-    .capa img { transition: transform 1.2s var(--ease); }
-    .botao, .servico, .dl, .projeto h3, .links a::after, .seta-m { transition-timing-function: var(--ease); }
-    ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-    ::view-transition-old(root) { z-index: 1; }
-    ::view-transition-new(root) { z-index: 2; }
   </style>
 </head>
 
@@ -1499,7 +1409,6 @@
   </dialog>
 
   <!-- JAVASCRIPT -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
   <script>
     "use strict";
 
@@ -1608,20 +1517,15 @@
     aplicarTema(raiz.dataset.tema === "escuro" ? "escuro" : "claro");
 
     botaoTema.addEventListener("click", () => {
-      const novo = raiz.dataset.tema === "escuro" ? "claro" : "escuro";
-      const ic = botaoTema.querySelector(".icone"); ic.classList.remove("gira"); void ic.offsetWidth; ic.classList.add("gira");
-      if (document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const r = botaoTema.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
-        const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-        document.startViewTransition(() => aplicarTema(novo, true)).ready.then(() => raiz.animate(
-          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] },
-          { duration: 800, easing: "cubic-bezier(0.16, 1, 0.3, 1)", pseudoElement: "::view-transition-new(root)" }
-        )).catch(() => {});
-      } else {
-        raiz.classList.add("trocando"); aplicarTema(novo, true); setTimeout(() => raiz.classList.remove("trocando"), 450);
-      }
+      raiz.classList.add("trocando");
+      aplicarTema(raiz.dataset.tema === "escuro" ? "claro" : "escuro", true);
+      setTimeout(() => raiz.classList.remove("trocando"), 450);
     });
 
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+      try { if (localStorage.getItem("tema")) return; } catch (_) {}
+      aplicarTema(e.matches ? "escuro" : "claro");
+    });
 
     // Menu Mobile
     const menu = document.querySelector(".menu");
@@ -1735,8 +1639,8 @@
         if (voltandoDeCase) {
           requestAnimationFrame(() => {
             const destino = document.getElementById(hash.slice(1));
-            if (destino) { window.lenis ? lenis.scrollTo(destino, { offset: -72, duration: 1.1 }) : destino.scrollIntoView(); }
-            else { window.lenis ? lenis.scrollTo(0, { immediate: true }) : window.scrollTo(0, 0); }
+            if (destino) destino.scrollIntoView();
+            else window.scrollTo(0, 0);
           });
         }
 
@@ -1809,7 +1713,7 @@
       `;
 
       iniciarCarrossel();
-      window.lenis ? lenis.scrollTo(0, { immediate: true }) : window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, behavior: "instant" });
       casePagina.querySelector("h1").focus({ preventScroll: true });
     }
 
@@ -1992,7 +1896,7 @@
       achados.forEach(m => m.classList.remove("atual"));
       const m = achados[posAtual]; m.classList.add("atual");
       m.closest(".revelar")?.classList.add("visivel");
-      window.lenis ? lenis.scrollTo(m, { offset: -innerHeight * 0.4, duration: 1 }) : m.scrollIntoView({ behavior: "auto", block: "center" });
+      m.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
       contagem.textContent = `${posAtual + 1} de ${achados.length}`;
     }
     function abrirBusca() { barra.classList.add("aberta"); campo.focus(); campo.select(); }
@@ -2009,177 +1913,8 @@
       else if (e.key === "Escape" && barra.classList.contains("aberta") && !lightbox.open) fecharBusca();
     });
 
-    // ===== Animações finais =====
-    const reduzMov = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const parEls = [];
-
-    // 1. Entrada do topo, em sequência
-    document.querySelectorAll(".hero .rotulo, .hero .profissao, .hero .introducao, .hero .acoes .botao, .hero .foto")
-      .forEach((el, i) => { el.dataset.ent = ""; el.style.setProperty("--i", i); });
-    dividirLetras(document.querySelector(".hero h1"));
-    requestAnimationFrame(() => document.querySelector(".hero")?.classList.add("entrou"));
-
-    // 6. Faixa em movimento contínuo (conteúdo repetido, sem emenda visível)
-    const faixa = document.querySelector(".faixa");
-    if (faixa && !faixa.dataset.m) {
-      faixa.dataset.m = "1";
-      const trilho = `<div class="trilho">${(faixa.innerHTML + "<b>✳</b>").repeat(3)}</div>`;
-      faixa.innerHTML = trilho + trilho;
-    }
-
-    // 5. Linha do tempo desenhada ao rolar
-    document.querySelector("#experiencia > .revelar:nth-child(2)")?.classList.add("linha-t");
-
-    // 4. Revelação gradual de títulos, textos, habilidades, cards e serviços
-    const revSel = ".revelar, h2, .cabecalho-secao p, .duas-colunas > div > p, .competencias span, .ferramentas span, .servico, .experiencia, .projeto, .dl, .contatos a";
-    const ioRev = "IntersectionObserver" in window ? new IntersectionObserver(es => {
-      es.filter(e => e.isIntersecting).forEach((e, i) => {
-        const el = e.target;
-        el.style.setProperty("--d", i * 90 + "ms");
-        el.classList.add("visivel");
-        setTimeout(() => { el.style.removeProperty("--d"); el.classList.add("pronto"); }, 1500 + i * 90);
-        ioRev.unobserve(el);
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }) : null;
-
-    function marcar() {
-      document.querySelectorAll(revSel).forEach(el => {
-        if (el.dataset.rev || el.closest(".hero")) return;
-        el.dataset.rev = "1";
-        if (el.matches("h2")) dividirPalavras(el);
-        if (!el.classList.contains("revelar")) {
-          el.classList.add("revelar");
-        }
-        if (ioRev && !el.classList.contains("visivel")) ioRev.observe(el);
-      });
-      // 8 e 10. A seta dos links e botões ganha vida própria
-      document.querySelectorAll(".servico a, .botao").forEach(el => {
-        if (el.children.length) return;
-        const m = el.textContent.trim().match(/^(.*?)\s*([↗↓→])$/);
-        if (m) el.innerHTML = `${escapar(m[1])}<span class="seta-m" data-s="${m[2]}">${m[2]}</span>`;
-      });
-    }
-    marcar(); coletarPar();
-    (() => { let t; return new MutationObserver(() => { cancelAnimationFrame(t); t = requestAnimationFrame(() => { marcar(); coletarPar(); }); }); })().observe(document.querySelector("main"), { childList: true, subtree: true });
-
-    // 2. Menu destaca a seção atual
-    if ("IntersectionObserver" in window) {
-      const spy = new IntersectionObserver(es => es.forEach(e => {
-        if (e.isIntersecting) document.querySelectorAll(".links a").forEach(a => a.classList.toggle("ativo", a.getAttribute("href") === "#" + e.target.id));
-      }), { rootMargin: "-45% 0px -50% 0px" });
-      ["inicio", "projetos", "sobre", "experiencia", "contato"].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
-    }
-
-    // 9. Voltar ao topo + progresso + linha do tempo + sombra do menu
-    const topo = document.querySelector("#voltar-topo"), cabecalho = document.querySelector("header");
-    let aguardando = false;
-    function aoRolar() {
-      aguardando = false;
-      const max = document.documentElement.scrollHeight - innerHeight;
-      topo.style.setProperty("--p", max > 0 ? Math.min(1, scrollY / max).toFixed(3) : 0);
-      topo.classList.toggle("mostrar", scrollY > 500);
-      cabecalho.classList.toggle("rolou", scrollY > 10);
-      if (!reduzMov) parEls.forEach(([el, f]) => {
-        const r = el.parentElement.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        el.style.translate = `0 ${((r.top + r.height / 2 - innerHeight / 2) * -f).toFixed(1)}px`;
-      });
-      const lt = document.querySelector(".linha-t");
-      if (lt) { const r = lt.getBoundingClientRect(); lt.style.setProperty("--p", Math.min(1, Math.max(0, (innerHeight * 0.75 - r.top) / r.height)).toFixed(3)); }
-    }
-    addEventListener("scroll", () => { if (!aguardando) { aguardando = true; requestAnimationFrame(aoRolar); } }, { passive: true });
-    topo.addEventListener("click", () => window.lenis ? lenis.scrollTo(0, { duration: 1.4 }) : scrollTo({ top: 0, behavior: reduzMov ? "auto" : "smooth" }));
-    aoRolar();
-
-    // 10. Resposta ao clique nos botões
-    document.addEventListener("pointerdown", e => {
-      const b = e.target.closest(".botao");
-      if (!b || reduzMov) return;
-      const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height), o = document.createElement("span");
-      o.className = "onda";
-      o.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
-      b.appendChild(o);
-      o.addEventListener("animationend", () => o.remove());
-    });
-
-    // Ao trocar de imagem na janela ampliada, a nova entra com animação
-    const mostrarBase = mostrarImagem;
-    mostrarImagem = function (n) {
-      mostrarBase(n);
-      const im = document.querySelector("#imagem-ampliada");
-      im.classList.remove("anima"); void im.offsetWidth; im.classList.add("anima");
-    };
-
-    function dividirLetras(h) {
-      if (!h || h.dataset.l) return;
-      h.dataset.l = "1";
-      h.setAttribute("aria-label", h.textContent.replace(/\s+/g, " ").trim());
-      let k = 0; const w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), nos = [];
-      while (w.nextNode()) nos.push(w.currentNode);
-      nos.forEach(n => {
-        const f = document.createDocumentFragment();
-        [...n.nodeValue].forEach(c => {
-          if (/\s/.test(c)) { f.append(c); return; }
-          const sp = document.createElement("span"); sp.className = "ch"; sp.setAttribute("aria-hidden", "true");
-          sp.style.setProperty("--k", k++); sp.textContent = c; f.append(sp);
-        });
-        n.replaceWith(f);
-      });
-    }
-    function dividirPalavras(h) {
-      let k = 0; const w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), nos = [];
-      while (w.nextNode()) nos.push(w.currentNode);
-      nos.forEach(n => {
-        const f = document.createDocumentFragment();
-        n.nodeValue.split(/(\s+)/).forEach(p => {
-          if (!p.trim()) { f.append(p); return; }
-          const o = document.createElement("span"); o.className = "pal";
-          const i = document.createElement("span"); i.className = "pal-i"; i.textContent = p; i.style.setProperty("--k", k++);
-          o.append(i); f.append(o);
-        });
-        n.replaceWith(f);
-      });
-    }
-    function coletarPar() {
-      parEls.length = 0;
-      document.querySelectorAll(".hero .foto img").forEach(el => parEls.push([el, 0.06]));
-      document.querySelectorAll(".projeto .capa img").forEach(el => parEls.push([el, 0.035]));
-    }
-
-    // ===== Rolagem suave com inércia (Lenis) =====
-    if (typeof Lenis !== "undefined" && !reduzMov) {
-      window.lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 1 });
-      requestAnimationFrame(function raf(t) { lenis.raf(t); requestAnimationFrame(raf); });
-      new MutationObserver(() => lenis[lightbox.open ? "stop" : "start"]()).observe(lightbox, { attributes: true, attributeFilter: ["open"] });
-    }
-
-    // ===== Texto que se embaralha e se revela letra por letra =====
-    const GL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+";
-    function embaralhar(el, dur = 700) {
-      if (reduzMov || !el || el._emb) return;
-      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nos = [];
-      while (w.nextNode()) if (w.currentNode.nodeValue.trim()) nos.push([w.currentNode, w.currentNode.nodeValue]);
-      el._emb = true;
-      const t0 = performance.now();
-      (function passo(agora) {
-        const p = Math.min(1, (agora - t0) / dur);
-        nos.forEach(([n, o]) => { n.nodeValue = [...o].map((c, i) => c === " " || i < o.length * p ? c : GL[Math.random() * GL.length | 0]).join(""); });
-        if (p < 1) requestAnimationFrame(passo); else { nos.forEach(([n, o]) => n.nodeValue = o); el._emb = false; }
-      })(t0);
-    }
-
-    // ===== Relógio ao vivo (horário de Brasília) =====
-    const legendaCidade = [...document.querySelectorAll(".foto-legenda span")].find(el => /Sorocaba/.test(el.textContent));
-    if (legendaCidade) {
-      legendaCidade.innerHTML = 'Sorocaba / SP · <time id="relogio"></time>';
-      const fmt = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "America/Sao_Paulo" });
-      const tique = () => { document.querySelector("#relogio").textContent = fmt.format(new Date()); };
-      tique(); setInterval(tique, 1000);
-    }
-
     renderizarProjetos();
     navegar();
   </script>
-  <button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo"><span aria-hidden="true">↑</span></button>
 </body>
 </html>
