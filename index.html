@@ -14,7 +14,7 @@
     (function () {
       try {
         var t = localStorage.getItem("tema");
-        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+        if (!t) t = "claro";
         document.documentElement.dataset.tema = t;
       } catch (e) {}
     })();
@@ -1033,13 +1033,12 @@
     .tema:hover { border-color: var(--vermelho); color: var(--vermelho); transform: translateY(-1px); }
     .tema .icone { font-size: 16px; line-height: 1; }
     html.trocando *, html.trocando *::before, html.trocando *::after {
-      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease !important;
+      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, fill 0.4s ease, stroke 0.4s ease, box-shadow 0.4s ease !important;
     }
     dialog#lightbox { color: var(--preto); }
     @media (max-width: 800px) { .tema .rot { display: none; } .tema { padding: 8px 12px; } }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
 
     /* ===== Downloads, carrossel, busca e mobile ===== */
@@ -1108,6 +1107,100 @@
     }
     @media (max-width: 480px) { .marca { font-size: 18px; } .marca span { display: none; } .menu { padding: 10px 12px; } .ferr { gap: 8px; } }
     @media (prefers-reduced-motion: reduce) { .capa.duplo img { animation: none; } .capa.duplo img:nth-child(2) { display: none; } }
+
+    /* ===== Animações finais ===== */
+    @keyframes sobe { from { opacity: 0; translate: 0 18px; } }
+    .animacoes .hero [data-ent] { opacity: 0; }
+    .animacoes .hero.entrou [data-ent] { opacity: 1; animation: sobe 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: calc(var(--i, 0) * 110ms); }
+    header { transition: box-shadow 0.3s; }
+    header.rolou { box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--preto) 45%, transparent); }
+    .links a { position: relative; padding-block: 6px; }
+    .links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--vermelho); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .links a:hover::after, .links a.ativo::after { transform: scaleX(1); }
+    .links a.ativo { color: var(--vermelho); }
+    .projeto h3 { transition: color 0.25s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .projeto a:hover h3 { color: var(--vermelho); transform: translateX(6px); }
+    .capa::after { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.3s, color 0.3s; }
+    .projeto a:hover .capa::after { transform: translate(3px, -3px) scale(1.12); background: var(--vermelho); color: var(--sobre-acento); }
+    .animacoes .revelar.visivel { transition: opacity 0.7s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease, border-color 0.3s ease; transition-delay: var(--d, 0ms); }
+    .servico { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s, border-color 0.3s; }
+    .servico:hover, .animacoes .servico.revelar.visivel:hover { transform: translateY(-8px); box-shadow: 0 22px 38px -20px color-mix(in srgb, var(--preto) 40%, transparent); }
+    .animacoes .dl.revelar.visivel:hover { transform: translateY(-4px); }
+    .seta-m { display: inline-block; margin-left: 8px; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    a:hover > .seta-m { transform: translate(4px, -4px); }
+    a:hover > .seta-m[data-s="↓"] { transform: translateY(4px); }
+    a:hover > .seta-m[data-s="→"] { transform: translateX(5px); }
+    .botao { position: relative; overflow: hidden; transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .botao:active { transform: scale(0.96); }
+    .onda { position: absolute; border-radius: 50%; background: currentColor; opacity: 0.25; transform: scale(0); animation: onda 0.6s ease-out forwards; pointer-events: none; }
+    @keyframes onda { to { transform: scale(2.6); opacity: 0; } }
+    .faixa { flex-wrap: nowrap; justify-content: flex-start; gap: 0; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    .faixa .trilho { display: flex; flex: none; align-items: center; gap: 36px; padding-right: 36px; animation: corre 32s linear infinite; }
+    @keyframes corre { to { transform: translateX(-100%); } }
+    .linha-t { position: relative; padding-left: 30px; }
+    .linha-t::before, .linha-t::after { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; }
+    .linha-t::before { background: var(--linha); }
+    .linha-t::after { background: var(--vermelho); transform-origin: top; transform: scaleY(var(--p, 0)); }
+    .linha-t .experiencia { position: relative; }
+    .linha-t .experiencia::before { content: ""; position: absolute; left: -36px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--creme); border: 2px solid var(--vermelho); transition: background 0.4s, transform 0.4s; }
+    .linha-t .experiencia.visivel::before { background: var(--vermelho); transform: scale(1.15); }
+    .voltar-topo { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 40; width: 52px; height: 52px; border: 0; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--vermelho) calc(var(--p, 0) * 360deg), var(--linha) 0); color: var(--preto); font-size: 20px; opacity: 0; transform: translateY(16px) scale(0.8); pointer-events: none; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4); transition: opacity 0.35s, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .voltar-topo::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--creme-card); }
+    .voltar-topo span { position: relative; transition: transform 0.3s; }
+    .voltar-topo.mostrar { opacity: 1; transform: none; pointer-events: auto; }
+    .voltar-topo:hover span { transform: translateY(-3px); }
+    .voltar-topo.mostrar:active { transform: scale(0.92); }
+    dialog#lightbox[open] { animation: abre 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    dialog#lightbox[open]::backdrop { animation: esmaece 0.4s ease; }
+    #imagem-ampliada.anima { animation: imgEntra 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    @keyframes abre { from { opacity: 0; transform: translateY(24px) scale(0.94); } }
+    @keyframes esmaece { from { opacity: 0; } }
+    @keyframes imgEntra { from { opacity: 0; transform: scale(0.97) translateX(18px); } }
+    .tema .icone { display: inline-block; }
+    .tema .icone.gira { animation: giro 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    @keyframes giro { from { transform: rotate(-200deg) scale(0.4); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .faixa .trilho { animation: none; } .onda { display: none; } }
+
+    /* ===== Fluidez (Lenis), desempenho e detalhes ===== */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    header { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    dialog#lightbox::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .faixa .trilho { will-change: transform; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
+      background-image: linear-gradient(90deg, color-mix(in srgb, var(--linha) 70%, transparent) 1px, transparent 1px); background-size: 10% 100%;
+      -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 15px); mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 15px); }
+    @media (max-width: 800px) { body::before { background-size: 25% 100%; } }
+    #pagina-case:not([hidden]), #pagina-inicial { animation: pagina 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    @keyframes pagina { from { opacity: 0; translate: 0 16px; } }
+    #relogio { font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) { body::before { display: none; } }
+
+    /* ===== Movimento mais fluido: curva única, duração longa ===== */
+    :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes sobe { from { opacity: 0; translate: 0 36px; } }
+    .animacoes .hero.entrou [data-ent] { animation: sobe 1.2s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 100ms + 250ms); }
+    .ch { display: inline-block; }
+    .animacoes .revelar { opacity: 0; transform: translate3d(0, 38px, 0); transition: opacity 1s var(--ease), transform 1.1s var(--ease); will-change: opacity, transform; }
+    .animacoes .revelar.visivel { opacity: 1; transform: none; transition: opacity 1s var(--ease), transform 1.1s var(--ease), box-shadow 0.4s var(--ease), border-color 0.3s; transition-delay: var(--d, 0ms); will-change: auto; }
+    .animacoes .revelar.visivel.pronto { transition: opacity 0.3s, transform 0.55s var(--ease), box-shadow 0.45s var(--ease), border-color 0.3s; transition-delay: 0s; }
+    .animacoes h2.revelar { opacity: 1; transform: none; transition: none; }
+    .pal { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+    .pal-i { display: inline-block; }
+    .animacoes .pal-i { transform: translate3d(0, 112%, 0); transition: transform 1.15s var(--ease); transition-delay: calc(var(--k, 0) * 70ms); }
+    .animacoes h2.visivel .pal-i { transform: none; }
+    .capa img { transition: transform 1.2s var(--ease); }
+    .botao, .servico, .dl, .projeto h3, .links a::after, .seta-m { transition-timing-function: var(--ease); }
+    ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+    ::view-transition-old(root) { z-index: 1; }
+    ::view-transition-new(root) { z-index: 2; }
+
+    /* Movimento reduzido: mantém apenas fades curtos */
+    @keyframes aparece { from { opacity: 0; } }
+    .reduz .revelar, .reduz .revelar.visivel { transform: none !important; transition: opacity 0.6s ease !important; }
+    .reduz .animacoes .pal-i, .reduz .pal-i { transform: none !important; transition: none !important; }
+    .reduz .hero.entrou [data-ent] { animation-name: aparece !important; }
   </style>
 </head>
 
@@ -1409,6 +1502,8 @@
   </dialog>
 
   <!-- JAVASCRIPT -->
+  <button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo"><span aria-hidden="true">↑</span></button>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
   <script>
     "use strict";
 
@@ -1517,15 +1612,20 @@
     aplicarTema(raiz.dataset.tema === "escuro" ? "escuro" : "claro");
 
     botaoTema.addEventListener("click", () => {
-      raiz.classList.add("trocando");
-      aplicarTema(raiz.dataset.tema === "escuro" ? "claro" : "escuro", true);
-      setTimeout(() => raiz.classList.remove("trocando"), 450);
+      const novo = raiz.dataset.tema === "escuro" ? "claro" : "escuro";
+      const ic = botaoTema.querySelector(".icone"); ic.classList.remove("gira"); void ic.offsetWidth; ic.classList.add("gira");
+      if (document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const r = botaoTema.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+        const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        document.startViewTransition(() => aplicarTema(novo, true)).ready.then(() => raiz.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] },
+          { duration: 800, easing: "cubic-bezier(0.16, 1, 0.3, 1)", pseudoElement: "::view-transition-new(root)" }
+        )).catch(() => {});
+      } else {
+        raiz.classList.add("trocando"); aplicarTema(novo, true); setTimeout(() => raiz.classList.remove("trocando"), 450);
+      }
     });
 
-    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-      try { if (localStorage.getItem("tema")) return; } catch (_) {}
-      aplicarTema(e.matches ? "escuro" : "claro");
-    });
 
     // Menu Mobile
     const menu = document.querySelector(".menu");
@@ -1639,8 +1739,8 @@
         if (voltandoDeCase) {
           requestAnimationFrame(() => {
             const destino = document.getElementById(hash.slice(1));
-            if (destino) destino.scrollIntoView();
-            else window.scrollTo(0, 0);
+            if (destino) { window.lenis ? lenis.scrollTo(destino, { offset: -72, duration: 1.1 }) : destino.scrollIntoView(); }
+            else { window.lenis ? lenis.scrollTo(0, { immediate: true }) : window.scrollTo(0, 0); }
           });
         }
 
@@ -1713,7 +1813,7 @@
       `;
 
       iniciarCarrossel();
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.lenis ? lenis.scrollTo(0, { immediate: true }) : window.scrollTo({ top: 0, behavior: "instant" });
       casePagina.querySelector("h1").focus({ preventScroll: true });
     }
 
@@ -1896,7 +1996,7 @@
       achados.forEach(m => m.classList.remove("atual"));
       const m = achados[posAtual]; m.classList.add("atual");
       m.closest(".revelar")?.classList.add("visivel");
-      m.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+      window.lenis ? lenis.scrollTo(m, { offset: -innerHeight * 0.4, duration: 1 }) : m.scrollIntoView({ behavior: "auto", block: "center" });
       contagem.textContent = `${posAtual + 1} de ${achados.length}`;
     }
     function abrirBusca() { barra.classList.add("aberta"); campo.focus(); campo.select(); }
@@ -1916,5 +2016,6 @@
     renderizarProjetos();
     navegar();
   </script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
