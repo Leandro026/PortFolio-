@@ -9,11 +9,11 @@
         content="Portfólio de Leandro Pelegrini: identidade visual, ilustração, design editorial e conteúdo para e-commerce.">
   <meta name="theme-color" content="#A51E22">
 
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <script>
     (function () {
       try {
-        var t = localStorage.getItem("tema");
+        var t = localStorage.getItem("tema-lp");
         if (!t) t = "claro";
         document.documentElement.dataset.tema = t;
       } catch (e) {}
@@ -1606,7 +1606,7 @@
       botaoTema.querySelector(".icone").textContent = escuro ? "☀" : "☾";
       botaoTema.querySelector(".rot").textContent = escuro ? "Claro" : "Escuro";
       metaTema.content = escuro ? "#141B26" : "#A51E22";
-      if (salvar) { try { localStorage.setItem("tema", tema); } catch (e) {} }
+      if (salvar) { try { localStorage.setItem("tema-lp", tema); } catch (e) {} }
     }
 
     aplicarTema(raiz.dataset.tema === "escuro" ? "escuro" : "claro");
